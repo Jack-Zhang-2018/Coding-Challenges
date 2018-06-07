@@ -2,42 +2,31 @@
 
 //This function takes in one whole number integer from 0 to 100 (inclusive), compares it to a randomly selected number, and returns a sentence informing the player whether their guess was high or low and how many tries they have left.
 
-high_low = (num) => {
-    if (num > scrtNum) {
-        return "high"
-    } else {
-        return "low"
-    }
-}
-
-tries_try = (tries) => {
-    if (7-tries > 1) {
-        return "tries"
-    } else {
-        return "try"
-    }
-}
-
-result = (num, tries) => {
-    return `${num} is too ${high_low(num)}! You have ${7-tries} more ${tries_try(tries)}.`
-}
-
 // Stretch goal 3: Allow the user to put their name in before the game starts. When the user has won the game, let the user know they have won, using their name.
+let tries = 0
+
 function hilo(name, num) {
 
     tries++
 
     let scrtNum = Math.floor((Math.random() * 100) + 1)
 
-
     // Stretch goal 2:  Validate the user's input. If the user puts a anything other than a number, tell the user they can only use numbers.
     if (parseInt(num) === NaN) {return "Error: Not a valid guess.  You can only use numbers."}
+
+    result = (num, tries) => {
+        let tries_try = (7-tries > 1) ? "tries" : "try"
+        let high_low = (num > scrtNum) ? "high" : "low"
+
+        return `${num} is too ${high_low}! You have ${7-tries} more ${tries_try}.`
+    }
 
     switch(true) {
 
         // Stretch goal 1:  If the user has not guessed the secret number in seven tries, the user loses.
         case (num != scrtNum && tries >= 7):
-            tries = 0; return "Game Over. You ran out of tries.";
+            tries = 0
+            return "Game Over. You ran out of tries."
             break;
 
         //If the inputted number is too low, then the function returns a notification and will prompt them to try again.
@@ -58,7 +47,7 @@ function hilo(name, num) {
 
 for (let i = 7; i > 0; i--) {
     let guess = Math.floor((Math.random() * 100) + 1)
-    console.log(hilo(guess))
+    console.log(hilo("Jack", guess))
 }
 
 //SECOND DRAFT
